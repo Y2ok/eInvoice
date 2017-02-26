@@ -12,3 +12,5 @@ const routes = (
         <Route path="*" component={NotFoundPage} />
     </Route>
 );
+
+export default routes;
