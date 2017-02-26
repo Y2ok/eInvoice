@@ -9,7 +9,7 @@ export default class Layout extends React.Component {
         return (
             <div className="app-container">
                 <header>
-                    <Link to ="/">
+                    <Link to="/">
                         e-Invoice
                     </Link>
                     <Menu />
