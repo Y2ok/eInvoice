@@ -5,7 +5,11 @@ import React from 'react';
 export default class IndexPage extends React.Component {
     render() {
         return (
-            <p>Hello Index</p>
+            <div className="row">
+                <div className="col-lg-1 col-centered">
+                    test
+                </div>
+            </div>
         );
     }
 }
