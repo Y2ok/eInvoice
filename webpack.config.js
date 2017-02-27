@@ -2,26 +2,23 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-    entry: path.join(__dirname, 'src', 'app-client.js'),
+    entry: path.join(__dirname, 'client', 'app-client.js'),
     output: {
-        path: path.join(__dirname, 'src', 'static', 'dist'),
+        path: path.join(__dirname, 'client', 'static', 'dist'),
         filename: 'eInvoice.js'
     },
     module: {
         loaders: [{
-            test: path.join(__dirname, 'src'),
-            loaders: ['babel-loader?' + JSON.stringify({
-                cacheDirectory: 'babel_cache',
-                presets: ['react', 'es2015']
-            })],
+            test: path.join(__dirname, 'client'),
+            loaders: ['react-hot-loader', 'babel-loader']
         }]
     },
     plugins: [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
-        new webpack.optimize.DedupePlugin(),
         new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: { warnings: false },
             mangle: true,
