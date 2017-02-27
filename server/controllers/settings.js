@@ -10,14 +10,14 @@ const validate = require('../helpers/validate');
 const settings = require('../db/settings');
 
 /**
- * Export modules
+ * Export modules.
  */
 module.exports = {
     getAll
 }
 
 /**
- * Retrieves all settings
+ * Retrieves all settings.
  * @public
  * @param {Object} req HTTP Request object.
  * @param {Object} res HTTP Response object.

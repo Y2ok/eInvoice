@@ -10,9 +10,9 @@ module.exports = {
 };
 
 /**
- * Create Invoices object.
+ * Create Clients object.
  * @private
  */
-function Invoices() {
-	return knex('invoices');
+function Clients() {
+	return knex('clients');
 }

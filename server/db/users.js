@@ -4,7 +4,7 @@
 var knex = require('./knex.js');
 
 /**
- * Module exports with all exported functions
+ * Module exports with all exported functions.
  */
 module.exports = {
     insert,
