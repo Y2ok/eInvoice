@@ -1,5 +1,5 @@
 /**
- * Invoices controller.
+ * Settings controller.
  */
 
 /**
@@ -7,7 +7,7 @@
  */
 const response = require('../helpers/response');
 const validate = require('../helpers/validate');
-const invoices = require('../db/invoices');
+const settings = require('../db/settings');
 
 /**
  * Export modules
@@ -17,13 +17,13 @@ module.exports = {
 }
 
 /**
- * Retrieves all invoices
+ * Retrieves all settings
  * @public
  * @param {Object} req HTTP Request object.
  * @param {Object} res HTTP Response object.
  * @returns {Object} Response object with response.
  */
 function getAll(req, res) {
-    return response.reportMessage(200, "test", res);
+    return response.reportMessage(200, "settings", res);
 }
 

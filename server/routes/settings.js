@@ -7,7 +7,7 @@
  */
 const express = require('express');
 const router = express.Router();
-const invoices = require('../controllers/invoices');
+const settings = require('../controllers/settings');
 const expressJwt = require('express-jwt');
 const { secretToken } = require('../config');
 const { setRole, isAdmin } = require('../middleware/index');
@@ -25,7 +25,7 @@ router.all('*', isAdmin, requireAuth, setRole);
 /**
  * Get all settings route.
  */
-router.get('/', invoices.getAll);
+router.get('/', settings.getAll);
 
 /**
  * Export router.
