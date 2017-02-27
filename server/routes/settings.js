@@ -1,5 +1,5 @@
 /**
- * Invoices Route.
+ * Settings Route.
  */
 
 /**
@@ -10,7 +10,7 @@ const router = express.Router();
 const invoices = require('../controllers/invoices');
 const expressJwt = require('express-jwt');
 const { secretToken } = require('../config');
-const { setRole } = require('../middleware/index');
+const { setRole, isAdmin } = require('../middleware/index');
 
 // Set expressJWT secret token for authorization
 const requireAuth = expressJwt({
@@ -20,10 +20,10 @@ const requireAuth = expressJwt({
 /**
  * All routes are accessible only if authorized.
  */
-router.all('*', requireAuth, setRole);
+router.all('*', isAdmin, requireAuth, setRole);
 
 /**
- * Get all invoices route.
+ * Get all settings route.
  */
 router.get('/', invoices.getAll);
 
