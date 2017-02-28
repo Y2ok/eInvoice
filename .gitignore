@@ -5,3 +5,4 @@
 .babelrc
 /server/config.js
 /server/db/seeds
+npm-debug.log

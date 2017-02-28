@@ -20,7 +20,7 @@ const requireAuth = expressJwt({
 /**
  * All routes are accessible only if authorized.
  */
-router.all('*', isAdmin, requireAuth, setRole);
+router.all('*', requireAuth, isAdmin, setRole);
 
 /**
  * Get all settings route.
