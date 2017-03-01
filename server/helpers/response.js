@@ -9,7 +9,14 @@ const errors = {
     },
     general: {
         unexpected: "unexpected_error",
-        notFound: "resource_not_found"
+        notFound: "resource_not_found",
+        notUnique: "data_not_unique"
+    },
+    validation: {
+        isEmpty: "is_empty",
+        isAlpha: "is_alpha",
+        validEmail: "is_not_email",
+        incorrectLength: "is_incorrect_length"
     },
     duplicateEntryCode: '23505',
     foreignKeyNotFound: '23503'
@@ -18,7 +25,8 @@ const errors = {
 // List of success codes
 const success = {
     general: {
-        dataReturned: "data_returned_successfully"
+        dataReturned: "data_returned_successfully",
+        dataAdded: "data_added_successfully"
     }
 };
 

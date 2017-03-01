@@ -8,7 +8,8 @@ var knex = require('./knex.js');
  */
 module.exports = {
 	getAll,
-	getOne
+	getOne,
+	insert
 };
 
 /**
@@ -36,4 +37,14 @@ function getAll() {
  */
 function getOne(id) {
 	return Clients().select('name', 'surname', 'company_name', 'registration_nr', 'address', 'city', 'country').where('id', id).first();
+}
+
+/**
+ * Inserts an entry in clients table.
+ * @public
+ * @param {Object} client Object with all client's data.
+ * @returns {Object} Insert query response from database.
+ */
+function insert(client) {
+	return Clients().insert(client);
 }

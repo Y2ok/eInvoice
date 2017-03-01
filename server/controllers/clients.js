@@ -85,7 +85,49 @@ function getSingle(req, res) {
  * @returns {Object} Response object with response.
  */
 function createClient(req, res) {
-    return response.reportMessage(201, "Create client", res);
+    // Validate create client form
+    let errors = validate.validateCreateClient(req);
+
+    // If there are any errors return them
+    if (errors) {
+        const message = {
+            errors
+        };
+        return response.reportMessage(400, message, res);
+    }    
+
+    // Setup insert data
+    const client = {        
+        name: req.body.name,
+        surname: req.body.surname,
+        company_name: req.body.company_name,
+        registration_nr: req.body.registration_nr,
+        address: req.body.address,
+        city: req.body.city,
+        country: req.body.country
+    };
+
+    // Let's insert client in database
+    clients.insert(client)
+        .then((result) => {
+            // client has been added, notify user
+            const message = {
+                success: response.success.general.dataAdded,
+            };
+            return response.reportMessage(201, message, res);
+        })
+        .catch((error) => {
+            // Check if client exists
+            if (error.code === response.errors.duplicateEntryCode) {
+                const message = {
+                    errors: response.errors.general.notUnique
+                };
+                return response.reportMessage(400, message, res);
+            }
+
+            // There is an internal error in database
+            return response.reportMessage(500, undefined, res);
+        });    
 }
 
 /**

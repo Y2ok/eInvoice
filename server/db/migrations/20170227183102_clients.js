@@ -3,8 +3,8 @@ exports.up = function(knex, Promise) {
         table.increments();
         table.string('name').notNullable();
         table.string('surname').notNullable();
-        table.string('company_name').notNullable();
-        table.string('registration_nr').notNullable();
+        table.string('company_name').notNullable().unique();
+        table.string('registration_nr').notNullable().unique();
         table.string('address').notNullable();
         table.string('city').notNullable();
         table.string('country').notNullable();
