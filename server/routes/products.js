@@ -28,6 +28,31 @@ router.all('*', requireAuth, isAdmin, setRole);
 router.get('/', products.getAll);
 
 /**
+ * Get single product route.
+ */
+router.get('/:id', products.getSingle);
+
+/**
+ * Add a product route.
+ */
+router.post('/', products.createProduct);
+
+/**
+ * Update a product route.
+ */
+router.put('/:id', products.updateProduct);
+
+/**
+ * Patch a product route.
+ */
+router.patch('/:id', products.patchProduct);
+
+/**
+ * Delete a product route.
+ */
+router.delete('/:id', products.deleteProduct);
+
+/**
  * Export router.
  */
 module.exports = router;

@@ -210,7 +210,6 @@ function patchClient(req, res) {
  * @param {Object} res HTTP Response object.
  * @returns {Object} Response object with response.
  */
-
 function deleteClient(req, res) {
     // Let's check if client exists.
     clients.getOne(req.params.id)

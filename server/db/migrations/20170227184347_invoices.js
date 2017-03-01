@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
         table.double('price').notNullable();
         table.double('price_vat').notNullable();
         table.integer('vat').notNullable();
+        table.integer('discount').notNullable();
     });
 };
 
