@@ -27,7 +27,8 @@ const success = {
  */
 module.exports = {
     reportMessage,
-    errors
+    errors,
+    success
 }
 
 /**
