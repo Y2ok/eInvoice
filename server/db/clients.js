@@ -9,7 +9,9 @@ var knex = require('./knex.js');
 module.exports = {
 	getAll,
 	getOne,
-	insert
+	insert,
+	update,
+	deleteClient
 };
 
 /**
@@ -47,4 +49,25 @@ function getOne(id) {
  */
 function insert(client) {
 	return Clients().insert(client);
+}
+
+/**
+ * Updates an entry in clients table.
+ * @public
+ * @param {Object} client Client's data.
+ * @param {number} id Client's id.
+ * @returns {Object} Update query response from database.
+ */
+function update(client, id) {
+	return Clients().where('id', id).update(client);
+}
+
+/**
+ * Deletes an entry in clients table.
+ * @public
+ * @param {number} id Client's id.
+ * @returns {Object} Returned response from database.
+ */
+function deleteClient(id) {
+	return Clients().where('id', id).delete();
 }

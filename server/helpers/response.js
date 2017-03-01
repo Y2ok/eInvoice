@@ -10,7 +10,8 @@ const errors = {
     general: {
         unexpected: "unexpected_error",
         notFound: "resource_not_found",
-        notUnique: "data_not_unique"
+        notUnique: "data_not_unique",
+        noDataSent: "no_data_sent"
     },
     validation: {
         isEmpty: "is_empty",
@@ -26,7 +27,9 @@ const errors = {
 const success = {
     general: {
         dataReturned: "data_returned_successfully",
-        dataAdded: "data_added_successfully"
+        dataAdded: "data_added_successfully",
+        dataUpdated: "data_updated_successfully",
+        dataDeleted: "data_deleted_succesffully"
     }
 };
 

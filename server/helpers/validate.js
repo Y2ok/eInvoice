@@ -14,7 +14,8 @@ module.exports = {
     validateAddUser,
     validatePatchUser,
     validateLogin,
-    validateCreateClient
+    validateAddClient,
+    validatePatchClient
 }
 
 /**
@@ -111,12 +112,62 @@ function validateLogin(req) {
 }
 
 /**
- * Validate create client input data.
+ * Validate patch client input data.
  * @public
  * @param {Object} req HTTP Request.
  * @returns {Object} List of error messages.
  */
-function validateCreateClient(req) {
+function validatePatchClient(req) {
+    // Check which fields were passed
+    for (let field in req.body) {
+        if (field === 'name') {
+            // Validate name
+            req.checkBody("name", response.errors.validation.isEmpty).isLength({ min: 1 });
+            req.checkBody("name", response.errors.validation.isAlpha).isAlpha();
+        }
+
+        if (field === 'surname') {
+            // Validate surname
+            req.checkBody("surname", response.errors.validation.isEmpty).isLength({ min: 1 });
+            req.checkBody("surname", response.errors.validation.isAlpha).isAlpha();
+        }
+
+        if (field === 'company_name') {
+            // Validate company name
+            req.checkBody("company_name", response.errors.validation.isEmpty).isLength({ min: 1 });
+        }
+
+        if (field === 'registration_nr') {
+            // Validate registration number
+            req.checkBody("registration_nr", response.errors.validation.isEmpty).isLength({ min: 1 });
+        }
+
+        if (field === 'address') {
+            // Validate address
+            req.checkBody("address", response.errors.validation.isEmpty).isLength({ min: 1 });
+        }
+
+        if (field === 'city') {
+            // Validate city
+            req.checkBody("city", response.errors.validation.isEmpty).isLength({ min: 1 });
+        }
+
+        if (field === 'country') {
+            // Validate country
+            req.checkBody("country", response.errors.validation.isEmpty).isLength({ min: 1 });
+        }
+    }
+    // Check for errors
+    return req.validationErrors();
+}
+
+/**
+ * Validate add client input data.
+ * @public
+ * @param {Object} req HTTP Request.
+ * @returns {Object} List of error messages.
+ */
+function validateAddClient(req) {
     // Validate name
     req.checkBody("name", response.errors.validation.isEmpty).isLength({ min: 1 });
     req.checkBody("name", response.errors.validation.isAlpha).isAlpha();

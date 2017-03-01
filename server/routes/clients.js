@@ -40,12 +40,12 @@ router.post('/', clients.createClient);
 /**
  * Update a client route.
  */
-router.put('/', clients.updateClient);
+router.put('/:id', clients.updateClient);
 
 /**
  * Patch a client route.
  */
-router.patch('/', clients.patchClient);
+router.patch('/:id', clients.patchClient);
 
 /**
  * Delete a client route.

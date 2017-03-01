@@ -86,7 +86,7 @@ function getSingle(req, res) {
  */
 function createClient(req, res) {
     // Validate create client form
-    let errors = validate.validateCreateClient(req);
+    let errors = validate.validateAddClient(req);
 
     // If there are any errors return them
     if (errors) {
@@ -117,7 +117,7 @@ function createClient(req, res) {
             return response.reportMessage(201, message, res);
         })
         .catch((error) => {
-            // Check if client exists
+            // Check if client data are unique
             if (error.code === response.errors.duplicateEntryCode) {
                 const message = {
                     errors: response.errors.general.notUnique
@@ -138,7 +138,29 @@ function createClient(req, res) {
  * @returns {Object} Response object with response.
  */
 function updateClient(req, res) {
-    return response.reportMessage(200, "Update client", res);
+    // Validate update client form
+    let errors = validate.validateAddClient(req);
+
+    // If there are any errors return them
+    if (errors) {
+        const message = {
+            errors
+        };
+        return response.reportMessage(400, message, res);
+    }    
+
+    // Setup insert data
+    const clientData = {        
+        name: req.body.name,
+        surname: req.body.surname,
+        company_name: req.body.company_name,
+        registration_nr: req.body.registration_nr,
+        address: req.body.address,
+        city: req.body.city,
+        country: req.body.country
+    };
+
+    return performUpdate(clientData, req, res);
 }
 
 /**
@@ -149,7 +171,36 @@ function updateClient(req, res) {
  * @returns {Object} Response object with response.
  */
 function patchClient(req, res) {
-    return response.reportMessage(200, "Patch client", res);
+    // Validate patch client form
+    let errors = validate.validatePatchClient(req);
+
+    // If there are any errors return them
+    if (errors) {
+        const message = {
+            errors
+        };
+        return response.reportMessage(400, message, res);
+    }
+
+    let clientData = {};
+
+    // Create dynamically client's data object
+    for (let field in req.body) {
+        if (['name', 'surname', 'company_name', 'registration_nr', 'address', 'city', 'country'] .indexOf(field) > -1) {
+            clientData[field] = req.body[field];
+        }
+    }
+
+    // Check if any changes will be done
+    if (Object.keys(clientData).length === 0) {
+        const message = {
+            errors: response.errors.general.noDataSent
+        };
+
+        return response.reportMessage(400, message, res);
+    }    
+
+    return performUpdate(clientData, req, res);
 }
 
 /**
@@ -161,5 +212,79 @@ function patchClient(req, res) {
  */
 
 function deleteClient(req, res) {
-    return response.reportMessage(200, "Delete client", res);
+    // Let's check if client exists.
+    clients.getOne(req.params.id)
+        .then((data) => {
+            // Check if client exists
+            if (data === undefined) {
+                const message = {
+                    errors: response.errors.general.notFound
+                };
+                return response.reportMessage(404, message, res);
+            }     
+
+            // Delete client by passed id
+            clients.deleteClient(req.params.id)
+                .then((result) => {
+                    const message = {
+                        success: response.success.general.dataDeleted
+                    };
+                    return response.reportMessage(200, message, res);
+                })
+                .catch((error) => {
+                    return response.reportMessage(500, undefined, res);
+                });
+        })
+        .catch(() => {
+            // There is an internal error in database
+            return response.reportMessage(500, undefined, res);
+        })
+}
+
+/**
+ * Update client data in database.
+ * @public
+ * @param {Object} req HTTP Request.
+ * @param {Object} res HTTP Response.
+ * @returns {Object} Response message.
+ */
+function performUpdate(clientData, req, res) {
+    // Let's check if client exists.
+    clients.getOne(req.params.id)
+        .then((data) => {
+            // Check if client exists
+            if (data === undefined) {
+                const message = {
+                    errors: response.errors.general.notFound
+                };
+                return response.reportMessage(404, message, res);
+            }       
+            
+            // Update client
+            clients.update(clientData, req.params.id)
+                .then(() => {
+                    // Client has been updated, notify user
+                    const message = {
+                        success: response.success.general.dataUpdated,
+                    };
+
+                    return response.reportMessage(200, message, res);
+                })
+                .catch((error) => {
+                    // Check if client data are unique
+                    if (error.code === response.errors.duplicateEntryCode) {
+                        const message = {
+                            errors: response.errors.general.notUnique
+                        };
+                        return response.reportMessage(400, message, res);
+                    }
+
+                    // There is an internal error in database
+                    return response.reportMessage(500, undefined, res);
+                });
+        })
+        .catch(() => {
+            // There is an internal error in database
+            return response.reportMessage(500, undefined, res);
+        });
 }
