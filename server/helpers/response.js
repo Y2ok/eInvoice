@@ -4,9 +4,23 @@
 
 // List of error codes
 const errors = {
+    authorization: {
+        incorrectData: "incorrect_data"
+    },
+    general: {
+        unexpected: "unexpected_error",
+        notFound: "resource_not_found"
+    },
     duplicateEntryCode: '23505',
     foreignKeyNotFound: '23503'
 }
+
+// List of success codes
+const success = {
+    general: {
+        dataReturned: "data_returned_successfully"
+    }
+};
 
 /**
  * Export modules.
@@ -29,6 +43,8 @@ function reportMessage(code, message, res) {
     if (message !== undefined) {
         return res.status(code).json(message);
     }
-    let errors = "Unexpected error, please contact site administrator!";
-    return res.status(code).json({ errors });
+    const errors = {
+        errors: this.errors.general.unexpected 
+    };
+    return res.status(code).json(errors);
 }

@@ -37,8 +37,10 @@ function authentication(email, password, done) {
         .then((data) => {
             // Check if data is returned
             if (data === undefined) {
-                const message = "E-mail address or password is incorrect!";
-                return done(null, false, { message });
+                const message = {
+                    errors: response.errors.authorization.incorrectData
+                };
+                return done(null, false, message);
             }
             
             // Compare data
@@ -50,8 +52,10 @@ function authentication(email, password, done) {
 
                 // If invalid data, deny authorization
                 if (!result) {
-                    const message = "E-mail address or password is incorrect!";
-                    return done(null, false, { message });
+                    const message = {
+                        errors: response.errors.authorization.incorrectData
+                    };
+                    return done(null, false, message);
                 }
 
                 // Authorize user

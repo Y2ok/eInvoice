@@ -8,9 +8,7 @@
 module.exports = {
     validateAddUser,
     validatePatchUser,
-    validateLogin,
-    validateAddMeal,
-    validatePatchMeal
+    validateLogin
 }
 
 /**
@@ -86,61 +84,6 @@ function validatePatchUser(req) {
             // Validate role
             req.checkBody("role", "Role is unknown!").isIn(["User", "User Manager", "Admin"]);
         }        
-    }
-
-    // Check for errors
-    return req.validationErrors();
-}
-
-/**
- * Validate add meal data.
- * @public
- * @param {Object} req HTTP Request.
- * @returns {Object} List of error messages.
- */
-function validateAddMeal(req) {
-    // Validate userId
-    req.checkBody("userid", "User Id is required!").notEmpty();
-    req.checkBody("userid", "User Id must be an integer!").isInt();
-
-    // Validate creation date
-    req.checkBody("created", "Creation date is required!").notEmpty();
-    req.checkBody("created", "Creation date format is incorrect!").isDate();
-
-    // Validate calories
-    req.checkBody("calories", "Calories must be entered!").notEmpty();
-    req.checkBody("calories", "Calories must be a positive, numeric value!").isInt({gt: -1});
-
-    // Check for errors
-    return req.validationErrors();
-}
-
-/**
- * Validate patch meal data.
- * @public
- * @param {Object} req HTTP Request.
- * @returns {Object} List of error messages.
- */
-function validatePatchMeal(req) {
-    // Check which fields were passed
-    for (let field in req.body) {
-        if (field === "userid") {
-            // Validate userId
-            req.checkBody("userid", "User Id is required!").notEmpty();
-            req.checkBody("userid", "User Id must be an integer!").isInt();
-        }
-
-        if (field === "created") {
-            // Validate creation date
-            req.checkBody("created", "Creation date is required!").notEmpty();
-            req.checkBody("created", "Creation date format is incorrect!").isDate();
-        }
-
-        if (field === "calories") {
-            // Validate calories
-            req.checkBody("calories", "Calories must be entered!").notEmpty();
-            req.checkBody("calories", "Calories must be a positive, numeric value!").isInt({gt: -1});
-        }
     }
 
     // Check for errors

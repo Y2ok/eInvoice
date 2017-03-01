@@ -29,7 +29,19 @@ module.exports = {
  * @returns {Object} Response object with response.
  */
 function getAll(req, res) {
-    return response.reportMessage(200, "clients", res);
+    clients.getAll()
+        .then((data) => {
+            // Return retrieved data
+            const message = {
+                success: response.success.general.dataReturned,
+                data
+            };
+            return response.reportMessage(200, message, res);
+        })
+        .catch(() => {
+            // Unexpected error happened, return error message.
+            return response.reportMessage(500, undefined, res);
+        });
 }
 
 /**
@@ -40,7 +52,28 @@ function getAll(req, res) {
  * @returns {Object} Response object with response.
  */
 function getSingle(req, res) {
-    return response.reportMessage(200, "single client", res);
+    clients.getOne(req.params.id)
+        .then((data) => {
+            // Check if client exists
+            if (data === undefined) {
+                const message = {
+                    errors: response.errors.general.notFound
+                };
+                return response.reportMessage(404, message, res);
+            }
+
+            // Everything is fine - return clients data
+            const message = {
+                success: response.success.general.dataReturned,
+                data
+            };
+            return response.reportMessage(200, message, res);
+            
+        })
+        .catch(() => {
+            // Unexpected error happened, return error message.
+            return response.reportMessage(500, undefined, res);
+        });
 }
 
 /**

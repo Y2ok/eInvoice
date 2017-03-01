@@ -7,6 +7,8 @@ var knex = require('./knex.js');
  * Module exports with all exported functions.
  */
 module.exports = {
+	getAll,
+	getOne
 };
 
 /**
@@ -15,4 +17,23 @@ module.exports = {
  */
 function Clients() {
 	return knex('clients');
+}
+
+/**
+ * Retrieves all clients.
+ * @public
+ * @returns {Object} Returned client object from database.
+ */
+function getAll() {
+	return Clients().select('*').orderBy('id', 'asc');
+}
+
+/**
+ * Retrieves single client data using passed id.
+ * @public
+ * @param {number} id Client's id.
+ * @returns {Object} Returned client object from database.
+ */
+function getOne(id) {
+	return Clients().select('name', 'surname', 'company_name', 'registration_nr', 'address', 'city', 'country').where('id', id).first();
 }
