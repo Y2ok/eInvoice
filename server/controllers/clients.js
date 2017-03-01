@@ -17,7 +17,8 @@ module.exports = {
     getSingle,
     createClient,
     updateClient,
-    patchClient
+    patchClient,
+    deleteClient
 }
 
 /**
@@ -73,4 +74,16 @@ function updateClient(req, res) {
  */
 function patchClient(req, res) {
     return response.reportMessage(200, "Patch client", res);
+}
+
+/**
+ * Deletes a single client.
+ * @public
+ * @param {Object} req HTTP Request object.
+ * @param {Object} res HTTP Response object.
+ * @returns {Object} Response object with response.
+ */
+
+function deleteClient(req, res) {
+    return response.reportMessage(200, "Delete client", res);
 }

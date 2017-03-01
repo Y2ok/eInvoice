@@ -48,6 +48,11 @@ router.put('/', clients.updateClient);
 router.patch('/', clients.patchClient);
 
 /**
+ * Delete a client route.
+ */
+router.delete('/:id', clients.deleteClient);
+
+/**
  * Export router.
  */
 module.exports = router;
