@@ -28,6 +28,26 @@ router.all('*', requireAuth, isAdmin, setRole);
 router.get('/', clients.getAll);
 
 /**
+ * Get single client route.
+ */
+router.get('/:id', clients.getSingle);
+
+/**
+ * Add a client route.
+ */
+router.post('/', clients.createClient);
+
+/**
+ * Update a client route.
+ */
+router.put('/', clients.updateClient);
+
+/**
+ * Patch a client route.
+ */
+router.patch('/', clients.patchClient);
+
+/**
  * Export router.
  */
 module.exports = router;
