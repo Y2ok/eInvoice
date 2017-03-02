@@ -103,6 +103,7 @@ function createClient(req, res) {
         registration_nr: req.body.registration_nr,
         address: req.body.address,
         city: req.body.city,
+        zip: req.body.zip,
         country: req.body.country
     };
 
@@ -116,7 +117,6 @@ function createClient(req, res) {
             return response.reportMessage(201, message, res);
         })
         .catch((error) => {
-            console.log(error);
             // Check if client data are unique
             if (error.code === response.errors.duplicateEntryCode) {
                 const message = {
@@ -157,6 +157,7 @@ function updateClient(req, res) {
         registration_nr: req.body.registration_nr,
         address: req.body.address,
         city: req.body.city,
+        zip: req.body.zip,
         country: req.body.country
     };
 
@@ -186,7 +187,7 @@ function patchClient(req, res) {
 
     // Create dynamically client's data object
     for (let field in req.body) {
-        if (['name', 'surname', 'company_name', 'registration_nr', 'address', 'city', 'country'].indexOf(field) > -1) {
+        if (['name', 'surname', 'company_name', 'registration_nr', 'address', 'city', 'zip', 'country'].indexOf(field) > -1) {
             clientData[field] = req.body[field];
         }
     }

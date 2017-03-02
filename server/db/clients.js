@@ -38,7 +38,7 @@ function getAll() {
  * @returns {Object} Returned client object from database.
  */
 function getOne(id) {
-	return Clients().select('name', 'surname', 'company_name', 'registration_nr', 'address', 'city', 'country').where('id', id).first();
+	return Clients().select('name', 'surname', 'company_name', 'registration_nr', 'address', 'city', 'zip', 'country').where('id', id).first();
 }
 
 /**

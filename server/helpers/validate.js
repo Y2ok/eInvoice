@@ -154,6 +154,11 @@ function validatePatchClient(req) {
             req.checkBody("city", response.errors.validation.isEmpty).isLength({ min: 1 });
         }
 
+        if (field === 'zip') {
+            // Validate zip
+            req.checkBody("zip", response.errors.validation.isEmpty).isLength({ min: 1 });   
+        }
+
         if (field === 'country') {
             // Validate country
             req.checkBody("country", response.errors.validation.isEmpty).isLength({ min: 1 });
@@ -189,6 +194,9 @@ function validateAddClient(req) {
 
     // Validate city
     req.checkBody("city", response.errors.validation.isEmpty).isLength({ min: 1 });
+
+    // Validate zip
+    req.checkBody("zip", response.errors.validation.isEmpty).isLength({ min: 1 });    
 
     // Validate country
     req.checkBody("country", response.errors.validation.isEmpty).isLength({ min: 1 });

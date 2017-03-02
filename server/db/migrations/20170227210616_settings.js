@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
         table.string('registration_nr').notNullable();
         table.string('address').notNullable();
         table.string('city').notNullable();
+        table.string('zip').notNullable();
         table.string('country').notNullable();
     });
 };

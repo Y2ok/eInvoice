@@ -16,3 +16,12 @@ module.exports = {
 function Settings() {
 	return knex('settings');
 }
+
+/**
+ * Retrieves all settings.
+ * @public
+ * @returns {Object} Returned client object from database.
+ */
+function getAll() {
+	return Settings().select('*').first();
+}
