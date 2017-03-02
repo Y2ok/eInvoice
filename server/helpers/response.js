@@ -14,10 +14,11 @@ const errors = {
         noDataSent: "no_data_sent"
     },
     validation: {
-        isEmpty: "is_empty",
-        isAlpha: "is_alpha",
+        isEmpty: "is_not_empty",
+        isAlpha: "is_not_alpha",
         validEmail: "is_not_email",
-        incorrectLength: "is_incorrect_length"
+        incorrectLength: "is_incorrect_length",
+        isInt: "is_not_int"
     },
     duplicateEntryCode: '23505',
     foreignKeyNotFound: '23503'

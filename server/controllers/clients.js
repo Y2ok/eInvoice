@@ -39,7 +39,6 @@ function getAll(req, res) {
             return response.reportMessage(200, message, res);
         })
         .catch((error) => {
-            console.log(error);
             // Unexpected error happened, return error message.
             return response.reportMessage(500, undefined, res);
         });
@@ -117,6 +116,7 @@ function createClient(req, res) {
             return response.reportMessage(201, message, res);
         })
         .catch((error) => {
+            console.log(error);
             // Check if client data are unique
             if (error.code === response.errors.duplicateEntryCode) {
                 const message = {
@@ -186,7 +186,7 @@ function patchClient(req, res) {
 
     // Create dynamically client's data object
     for (let field in req.body) {
-        if (['name', 'surname', 'company_name', 'registration_nr', 'address', 'city', 'country'] .indexOf(field) > -1) {
+        if (['name', 'surname', 'company_name', 'registration_nr', 'address', 'city', 'country'].indexOf(field) > -1) {
             clientData[field] = req.body[field];
         }
     }
@@ -243,6 +243,7 @@ function deleteClient(req, res) {
 /**
  * Update client data in database.
  * @public
+ * @param {Object} clientData Client data which will be updated.
  * @param {Object} req HTTP Request.
  * @param {Object} res HTTP Response.
  * @returns {Object} Response message.

@@ -15,7 +15,9 @@ module.exports = {
     validatePatchUser,
     validateLogin,
     validateAddClient,
-    validatePatchClient
+    validatePatchClient,
+    validateAddProduct,
+    validatePatchProduct
 }
 
 /**
@@ -191,6 +193,48 @@ function validateAddClient(req) {
     // Validate country
     req.checkBody("country", response.errors.validation.isEmpty).isLength({ min: 1 });
 
+    // Check for errors
+    return req.validationErrors();
+}
+
+/**
+ * Validate add product input data.
+ * @public
+ * @param {Object} req HTTP Request.
+ * @returns {Object} List of error messages.
+ */
+function validateAddProduct(req) {
+    // Validate name
+    req.checkBody("name", response.errors.validation.isEmpty).isLength({ min: 1 });
+    req.checkBody("name", response.errors.validation.isAlpha).isAlpha();
+
+    // Validate price
+    req.checkBody("price", response.errors.validation.isInt).isFloat({ gt: 0 });
+
+    // Check for errors
+    return req.validationErrors();
+}
+
+/**
+ * Validate patch product input data.
+ * @public
+ * @param {Object} req HTTP Request.
+ * @returns {Object} List of error messages.
+ */
+function validatePatchProduct(req) {
+    // Check which fields were passed
+    for (let field in req.body) {
+        if (field === 'name') {
+            // Validate name
+            req.checkBody("name", response.errors.validation.isEmpty).isLength({ min: 1 });
+            req.checkBody("name", response.errors.validation.isAlpha).isAlpha();
+        }
+
+        if (field === 'price') {
+            // Validate price
+            req.checkBody("price", response.errors.validation.isInt).isFloat({ gt: 0 });
+        }
+    }
     // Check for errors
     return req.validationErrors();
 }
