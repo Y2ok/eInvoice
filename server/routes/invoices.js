@@ -28,6 +28,16 @@ router.all('*', requireAuth, setRole);
 router.get('/', invoices.getAll);
 
 /**
+ * Get a single invoice route.
+ */
+router.get('/:id', invoices.getSingle);
+
+/**
+ * Post an invoice route.
+ */
+router.post('/', invoices.createInvoice);
+
+/**
  * Export router.
  */
 module.exports = router;

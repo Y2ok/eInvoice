@@ -38,7 +38,21 @@ function getAll() {
  * @returns {Object} Returned invoice object from database.
  */
 function getOne(id) {
-	return Invoices().select('client_id', 'creation_date', 'price', 'price_vat', 'vat', 'discount').where('id', id).first();
+	return Invoices().select(
+		'invoices.client_id', 
+		'invoices.creation_date', 
+		'invoices.price', 
+		'invoices.price_vat', 
+		'invoices.vat', 
+		'invoices.discount', 
+		'invoice_products.quantity', 
+		'products.name', 
+		'products.price as productPrice', 
+		'products.description'
+	)
+		.innerJoin('invoice_products', 'invoices.id', 'invoice_products.invoice_id')
+		.innerJoin('products', 'products.id', 'invoice_products.product_id')
+		.where('invoices.id', id);
 }
 
 /**
@@ -48,7 +62,7 @@ function getOne(id) {
  * @returns {Object} Insert query response from database.
  */
 function insert(invoice) {
-	return Invoices().insert(invoice);
+	return Invoices().insert(invoice).returning('id');
 }
 
 /**
