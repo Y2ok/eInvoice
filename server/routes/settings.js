@@ -28,6 +28,16 @@ router.all('*', requireAuth, isAdmin, setRole);
 router.get('/', settings.getAll);
 
 /**
+ * Update all settings route.
+ */
+router.put('/', settings.updateSettings);
+
+/**
+ * Patch settings route.
+ */
+router.patch('/', settings.patchSettings);
+
+/**
  * Export router.
  */
 module.exports = router;

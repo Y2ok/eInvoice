@@ -17,7 +17,9 @@ module.exports = {
     validateAddClient,
     validatePatchClient,
     validateAddProduct,
-    validatePatchProduct
+    validatePatchProduct,
+    validateAddSettings,
+    validatePatchSettings,
 }
 
 /**
@@ -243,6 +245,79 @@ function validatePatchProduct(req) {
             req.checkBody("price", response.errors.validation.isInt).isFloat({ gt: 0 });
         }
     }
+    // Check for errors
+    return req.validationErrors();
+}
+
+
+/**
+ * Validate patch settings input data.
+ * @public
+ * @param {Object} req HTTP Request.
+ * @returns {Object} List of error messages.
+ */
+function validatePatchSettings(req) {
+    // Check which fields were passed
+    for (let field in req.body) {
+        if (field === 'company_name') {
+            // Validate company name
+            req.checkBody("company_name", response.errors.validation.isEmpty).isLength({ min: 1 });
+        }
+
+        if (field === 'registration_nr') {
+            // Validate registration number
+            req.checkBody("registration_nr", response.errors.validation.isEmpty).isLength({ min: 1 });
+        }
+
+        if (field === 'address') {
+            // Validate address
+            req.checkBody("address", response.errors.validation.isEmpty).isLength({ min: 1 });
+        }
+
+        if (field === 'city') {
+            // Validate city
+            req.checkBody("city", response.errors.validation.isEmpty).isLength({ min: 1 });
+        }
+
+        if (field === 'zip') {
+            // Validate zip
+            req.checkBody("zip", response.errors.validation.isEmpty).isLength({ min: 1 });   
+        }
+
+        if (field === 'country') {
+            // Validate country
+            req.checkBody("country", response.errors.validation.isEmpty).isLength({ min: 1 });
+        }
+    }
+    // Check for errors
+    return req.validationErrors();
+}
+
+/**
+ * Validate add settings input data.
+ * @public
+ * @param {Object} req HTTP Request.
+ * @returns {Object} List of error messages.
+ */
+function validateAddSettings(req) {
+    // Validate company name
+    req.checkBody("company_name", response.errors.validation.isEmpty).isLength({ min: 1 });
+
+    // Validate registration number
+    req.checkBody("registration_nr", response.errors.validation.isEmpty).isLength({ min: 1 });
+
+    // Validate address
+    req.checkBody("address", response.errors.validation.isEmpty).isLength({ min: 1 });
+
+    // Validate city
+    req.checkBody("city", response.errors.validation.isEmpty).isLength({ min: 1 });
+
+    // Validate zip
+    req.checkBody("zip", response.errors.validation.isEmpty).isLength({ min: 1 });    
+
+    // Validate country
+    req.checkBody("country", response.errors.validation.isEmpty).isLength({ min: 1 });
+
     // Check for errors
     return req.validationErrors();
 }

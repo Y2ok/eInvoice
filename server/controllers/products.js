@@ -38,7 +38,7 @@ function getAll(req, res) {
             };
             return response.reportMessage(200, message, res);
         })
-        .catch((error) => {
+        .catch(() => {
             // Unexpected error happened, return error message.
             return response.reportMessage(500, undefined, res);
         });
