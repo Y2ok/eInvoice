@@ -11,7 +11,8 @@ module.exports = {
 	getOne,
 	update,
 	insert,
-	deleteInvoice
+	deleteInvoice,
+	deleteInvoiceProducts
 };
 
 /**
@@ -20,6 +21,13 @@ module.exports = {
  */
 function Invoices() {
 	return knex('invoices');
+}
+
+/**
+ * Create invoice products object.
+ */
+function Invoice_Products() {
+	return knex('invoice_products');
 }
 
 /**
@@ -77,10 +85,20 @@ function update(invoice, id) {
 }
 
 /**
+ * Deletes all invoice products.
+ * @public
+ * @param {number} id Invoice's id.
+ * @returns {Object} Returned response from the database.
+ */
+function deleteInvoiceProducts(id) {
+	return Invoice_Products().where('invoice_id', id).delete();
+}
+
+/**
  * Deletes an entry in invoices table.
  * @public
  * @param {number} id Invoice's id.
- * @returns {Object} Returned response from database.
+ * @returns {Object} Returned response from the database.
  */
 function deleteInvoice(id) {
 	return Invoices().where('id', id).delete();

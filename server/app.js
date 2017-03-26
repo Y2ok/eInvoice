@@ -88,13 +88,12 @@ app.use(function (err, req, res, next) {
     const message = {
       error: 'Not authorized!'
     };
-    response.reportMessage(err.status || 500, message, res);
+    return res.status(err.status || 500).json(message);
   } else {
-    console.log(err);
     const message = {
-      error: 'Unexpected error!'
+      error: err.errors ? err.errors : 'Unexpected error!'
     }
-    response.reportMessage(err.status || 500, message, res);
+    return res.status(err.status || 500).json(message);
   }
 });
 

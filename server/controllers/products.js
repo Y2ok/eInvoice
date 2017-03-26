@@ -15,6 +15,7 @@ const products = require('../db/products');
 module.exports = {
     getAll,
     getSingle,
+    getById,
     createProduct,
     updateProduct,
     patchProduct,
@@ -74,6 +75,37 @@ function getSingle(req, res) {
             // Unexpected error happened, return error message.
             return response.reportMessage(500, undefined, res);
         });
+}
+
+/**
+ * Retrieves single product using passed id.
+ * @public
+ * @param {Object} id Passed products id.
+ * @returns {Object} Response object with response.
+ */
+function getById(req, id, next) {
+    return new Promise((resolve, reject) => {
+        products.getOne(id)
+            .then((data) => {
+                // Check if product exists
+                if (data === undefined) {
+                    const message = {
+                        errors: response.errors.general.notFound
+                    };
+                    return next(message);
+                }
+
+                // Everything is fine - return products data
+                const message = {
+                    success: response.success.general.dataReturned,
+                    data
+                };
+
+                return resolve(message);
+                
+            })
+            .catch(next);
+    });
 }
 
 /**

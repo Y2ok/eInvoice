@@ -38,6 +38,11 @@ router.get('/:id', invoices.getSingle);
 router.post('/', invoices.createInvoice);
 
 /**
+ * Delete an invoice route.
+ */
+router.delete('/:id', invoices.deleteInvoice);
+
+/**
  * Export router.
  */
 module.exports = router;
